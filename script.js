@@ -290,7 +290,7 @@ async function fetchSpotifyActivity() {
     const proxyUrl = "https://cors-anywhere.herokuapp.com/";
     const apiUrl = `https://api.lanyard.rest/v1/users/${discordUserId}`;
 
-    const response = await fetch(proxyUrl + apiUrl);
+    const response = await fetch(apiUrl);
     // const response = await fetch(`https://api.lanyard.rest/v1/users/${discordUserId}`);
     const data = await response.json();
 

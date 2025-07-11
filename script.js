@@ -348,7 +348,7 @@ function formatTime(ms) {
 }
 
 // Update Spotify activity every 1 second
-setInterval(fetchSpotifyActivity, 1000);
+setInterval(fetchSpotifyActivity, 5000);
 fetchSpotifyActivity();
 
 function calculateProgress(start, end) {

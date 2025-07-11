@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       move: {
         enable: true,
-        speed: 0.2,
+        speed: 0.4,
         direction: "none",
         random: true,
         straight: false,
@@ -281,3 +281,67 @@ window.addEventListener("scroll", () => {
     timelineItems[0].classList.add("visible"); // Füge die Klasse dem ersten Element wieder hinzu
   }
 });
+
+const discordUserId = "863095378538266634"; // Deine Discord-ID
+const spotifyContainer = document.getElementById("spotify-activity");
+
+async function fetchSpotifyActivity() {
+  try {
+    const response = await fetch(`https://api.lanyard.rest/v1/users/${discordUserId}`);
+    const data = await response.json();
+
+    if (data.data.listening_to_spotify) {
+      const spotify = data.data.spotify;
+      const progress = calculateProgress(spotify.timestamps.start, spotify.timestamps.end);
+      const elapsedTime = formatTime(Date.now() - spotify.timestamps.start);
+      const totalTime = formatTime(spotify.timestamps.end - spotify.timestamps.start);
+
+      spotifyContainer.innerHTML = `
+        <div class="spotify-card">
+          <img src="${spotify.album_art_url}" alt="Album Art" class="spotify-album-art">
+          <div class="spotify-info">
+            <p><strong>${spotify.song}</strong></p>
+            <p>${spotify.artist}</p>
+          </div>
+          <div class="spotify-progress-bar">
+            <div class="spotify-progress" style="width: ${progress}%;"></div>
+          </div>
+          <div class="spotify-time">
+            <span>${elapsedTime}</span>
+            <span>${totalTime}</span>
+          </div>
+        </div>
+      `;
+    } else {
+      spotifyContainer.innerHTML = `
+        <div class="spotify-card">
+          <p style="color: var(--text-muted);">Not listening to Spotify right now.</p>
+        </div>
+      `;
+    }
+  } catch (error) {
+    console.error("Error fetching Spotify activity:", error);
+    spotifyContainer.innerHTML = `
+      <div class="spotify-card">
+        <p style="color: var(--text-muted);">Unable to load Spotify activity.</p>
+      </div>
+    `;
+  }
+}
+
+function calculateProgress(start, end) {
+  const currentTime = Date.now();
+  const totalDuration = end - start;
+  const elapsed = currentTime - start;
+  return Math.min((elapsed / totalDuration) * 100, 100);
+}
+
+function formatTime(ms) {
+  const minutes = Math.floor(ms / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
+// Aktualisiere die Spotify-Aktivität alle 1 Sekunde
+setInterval(fetchSpotifyActivity, 1000);
+fetchSpotifyActivity();

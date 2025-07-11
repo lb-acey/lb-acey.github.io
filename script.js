@@ -295,12 +295,13 @@ async function fetchSpotifyActivity() {
       const progress = calculateProgress(spotify.timestamps.start, spotify.timestamps.end);
       const elapsedTime = formatTime(Date.now() - spotify.timestamps.start);
       const totalTime = formatTime(spotify.timestamps.end - spotify.timestamps.start);
+      const spotifyLink = `https://open.spotify.com/track/${spotify.track_id}`;
 
       spotifyContainer.innerHTML = `
         <div class="spotify-card">
           <img src="${spotify.album_art_url}" alt="Album Art" class="spotify-album-art">
           <div class="spotify-info">
-            <p><strong>${spotify.song}</strong></p>
+            <p><strong><a href="${spotifyLink}" target="_blank" rel="noopener noreferrer">${spotify.song}</a></strong></p>
             <p>${spotify.artist}</p>
           </div>
           <div class="spotify-progress-bar">

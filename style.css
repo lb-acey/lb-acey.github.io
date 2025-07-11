@@ -542,6 +542,17 @@ h2:hover {
   transition: transform 0.3s ease;
 }
 
+.spotify-info a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.spotify-info a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 
 .spotify-info {
   margin-top: 10px;

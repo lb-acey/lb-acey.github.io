@@ -288,7 +288,7 @@ const spotifyContainer = document.getElementById("spotify-activity");
 
 async function fetchSpotifyActivity() {
   try {
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const proxyUrl = "https://api.allorigins.win/get?url=";
     const apiUrl = `${proxyUrl}https://api.lanyard.rest/v1/users/${discordUserId}`;
 
     const response = await fetch(apiUrl);

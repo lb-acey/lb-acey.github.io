@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.getElementById("loading-screen");
-
+  
   // Füge die fade-out-Klasse hinzu
   setTimeout(() => {
     loadingScreen.classList.add("fade-out");
@@ -9,11 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingScreen.addEventListener("animationend", () => {
       loadingScreen.remove(); // Entferne den Ladebildschirm aus dem DOM
 
+      window.scrollTo(0, 0);
+
       // Starte den Typing-Effekt, nachdem der Ladebildschirm entfernt wurde
       startTypingEffect();
     });
   }, 1000); // Zeige den Ladebildschirm für mindestens 1 Sekunde
 });
+
+
 
 // Modals
 const modals = document.querySelectorAll(".modal");
@@ -252,4 +256,28 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     retina_detect: true,
   });
+});
+
+const timelineItems = document.querySelectorAll(".timeline-item");
+
+// IntersectionObserver für die Sichtbarkeit der Timeline-Elemente
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible"); // Füge die Klasse hinzu, wenn sichtbar
+    }
+  });
+}, {
+  threshold: 0.2, // 20% des Elements müssen sichtbar sein
+});
+
+// Beobachte alle Timeline-Elemente
+timelineItems.forEach((item) => observer.observe(item));
+
+// Scroll-Event, um die Sichtbarkeit zurückzusetzen, wenn der Benutzer ganz oben ist
+window.addEventListener("scroll", () => {
+  if (window.scrollY === 0) {
+    timelineItems.forEach((item) => item.classList.remove("visible")); // Entferne die Klasse
+    timelineItems[0].classList.add("visible"); // Füge die Klasse dem ersten Element wieder hinzu
+  }
 });

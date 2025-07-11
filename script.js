@@ -282,7 +282,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
-const discordUserId = "863095378538266634"; // Deine Discord-ID
+const discordUserId = "863095378538266634"; 
 const spotifyContainer = document.getElementById("spotify-activity");
 
 async function fetchSpotifyActivity() {

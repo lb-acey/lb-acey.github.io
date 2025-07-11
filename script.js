@@ -289,13 +289,16 @@ const spotifyContainer = document.getElementById("spotify-activity");
 async function fetchSpotifyActivity() {
   try {
     const proxyUrl = "https://api.allorigins.win/get?url=";
-    const apiUrl = `${proxyUrl}https://api.lanyard.rest/v1/users/${discordUserId}`;
+    const apiUrl = `${proxyUrl}${encodeURIComponent(`https://api.lanyard.rest/v1/users/${discordUserId}`)}`;
 
     const response = await fetch(apiUrl);
     const data = await response.json();
 
-    if (data.data.listening_to_spotify) {
-      const spotify = data.data.spotify;
+    // Parse the nested JSON from the "contents" field
+    const lanyardData = JSON.parse(data.contents);
+
+    if (lanyardData.data.listening_to_spotify) {
+      const spotify = lanyardData.data.spotify;
       const progress = calculateProgress(spotify.timestamps.start, spotify.timestamps.end);
       const elapsedTime = formatTime(Date.now() - spotify.timestamps.start);
       const totalTime = formatTime(spotify.timestamps.end - spotify.timestamps.start);

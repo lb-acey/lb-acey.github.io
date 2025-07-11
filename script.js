@@ -287,7 +287,11 @@ const spotifyContainer = document.getElementById("spotify-activity");
 
 async function fetchSpotifyActivity() {
   try {
-    const response = await fetch(`https://api.lanyard.rest/v1/users/${discordUserId}`);
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const apiUrl = `https://api.lanyard.rest/v1/users/${discordUserId}`;
+
+    const response = await fetch(proxyUrl + apiUrl);
+    // const response = await fetch(`https://api.lanyard.rest/v1/users/${discordUserId}`);
     const data = await response.json();
 
     if (data.data.listening_to_spotify) {

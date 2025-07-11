@@ -46,12 +46,7 @@ window.addEventListener("click", e => {
   });
 });
 
-// Dark/Light Mode Toggle
-const themeToggle = document.getElementById("theme-toggle");
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-  themeToggle.textContent = document.body.classList.contains("light-mode") ? "🌙" : "☀️";
-});
+
 
 // Scroll-to-Top Button
 const backToTopButton = document.getElementById("back-to-top");
@@ -159,13 +154,6 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-let visitorCount = localStorage.getItem("visitorCount") || 0;
-visitorCount++;
-localStorage.setItem("visitorCount", visitorCount);
-
-const visitorElement = document.createElement("p");
-visitorElement.textContent = `You are visitor number: ${visitorCount}`;
-document.querySelector("footer").appendChild(visitorElement);
 
 window.addEventListener("scroll", () => {
   const maxScroll = document.body.scrollHeight - window.innerHeight;
@@ -195,62 +183,12 @@ projectcards.forEach(project => {
   });
 });
 
-tsParticles.load("particles-js", {
-  particles: {
-    number: {
-      value: 100, // Anzahl der Sterne
-      density: {
-        enable: true,
-        value_area: 800,
-      },
-    },
-    color: {
-      value: "#ffffff", // Weiße Sterne
-    },
-    shape: {
-      type: "circle",
-    },
-    opacity: {
-      value: 0.8,
-      random: true, // Funkeln
-      anim: {
-        enable: true,
-        speed: 1,
-        opacity_min: 0.3,
-        sync: false,
-      },
-    },
-    size: {
-      value: 3,
-      random: true,
-    },
-    move: {
-      enable: true,
-      speed: 0.2, // Langsame Bewegung
-      direction: "none",
-      random: true,
-      straight: false,
-      out_mode: "out",
-      bounce: false,
-    },
-  },
-  interactivity: {
-    detect_on: "canvas",
-    events: {
-      onhover: {
-        enable: true,
-        mode: "repulse", // Sterne bewegen sich weg, wenn die Maus darüber ist
-      },
-    },
-    modes: {
-      repulse: {
-        distance: 100,
-        duration: 0.4,
-      },
-    },
-  },
-  retina_detect: true,
-});
+
+
+const particlesContainer = document.getElementById("particles-js");
+particlesContainer.style.backgroundColor = document.body.classList.contains("light-mode")
+  ? "#ffffff"
+  : "var(--background)";
 
 let konamiCode = [];
 const secretCode = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
@@ -263,3 +201,55 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  tsParticles.load("particles-js", {
+    particles: {
+      number: {
+        value: 100,
+        density: {
+          enable: true,
+          value_area: 800,
+        },
+      },
+      color: {
+        value: "#ffffff", // Standardfarbe (Dark Mode)
+      },
+      shape: {
+        type: "circle",
+      },
+      opacity: {
+        value: 0.8,
+        random: true,
+      },
+      size: {
+        value: 3,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 0.2,
+        direction: "none",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+      },
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "repulse",
+        },
+      },
+      modes: {
+        repulse: {
+          distance: 100,
+          duration: 0.4,
+        },
+      },
+    },
+    retina_detect: true,
+  });
+});

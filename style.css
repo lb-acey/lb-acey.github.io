@@ -15,8 +15,33 @@
     color: var(--text);
     margin: 0;
     padding: 0;
+    transition: background-color 0.3s, color 0.3s;
   }
   
+  body.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  body.light-mode .project {
+    background: #f0f0f0;
+    color: #000000;
+  }
+  body.light-mode .modal-content {
+    background: #f0f0f0;
+    color: #000000;
+  }
+
+  #theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
   .container {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -139,6 +164,7 @@
     position: relative;
     animation: fadeInModal 0.3s ease;
   }
+
   
   .modal-content a {
     color: var(--primary);
@@ -149,6 +175,7 @@
     from { opacity: 0; transform: scale(0.95); }
     to   { opacity: 1; transform: scale(1); }
   }
+
   
   .modal .close {
     position: absolute;
@@ -171,3 +198,176 @@
     margin-top: 60px;
   }
   
+  /* Scroll-to-Top Button */
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary);
+  color: #000000;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+#back-to-top.show {
+  display: block;
+}
+
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Tooltip für Skills */
+.skill {
+  position: relative;
+}
+
+.skill:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 0;
+  background: var(--surface);
+  color: var(--text);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px var(--shadow);
+}
+
+/* Animation beim Scrollen */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Navigation */
+#mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#mobile-nav.show {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#mobile-nav a {
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+  margin: 15px 0;
+  transition: color 0.3s ease;
+}
+
+#mobile-nav a:hover {
+  color: var(--primary);
+}
+
+#menu-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 101;
+  color: var(--text);
+}
+
+#menu-toggle:hover {
+  color: var(--primary);
+}
+
+/* Header Buttons */
+#theme-toggle,
+#menu-toggle {
+  position: absolute;
+  top: 20px;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+}
+
+#theme-toggle {
+  right: 60px; /* Abstand vom rechten Rand */
+}
+
+#menu-toggle {
+  right: 20px; /* Abstand vom rechten Rand */
+}
+
+#theme-toggle:hover,
+#menu-toggle:hover {
+  color: var(--primary);
+}
+
+.tech {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 15px;
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tech:hover {
+  background: var(--primary);
+  color: var(--background);
+}
+
+.tech[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: var(--surface);
+  color: var(--text);
+  padding: 5px 10px;
+  border-radius: 5px;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background: var(--primary);
+  width: 0;
+  z-index: 200;
+  transition: width 0.2s ease;
+}

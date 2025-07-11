@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>I love Schnitzel</title>
-  <link rel="stylesheet" href="./style.css" />
+  <title>I luv schnitzel</title>
+  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -12,7 +12,16 @@
     <header>
       <h1>Acey<span class="blinker">|</span></h1>
       <p>// Developer from germany</p>
+      <button id="theme-toggle">🌙</button>
+      <button id="menu-toggle">☰</button>
     </header>
+
+    <nav id="mobile-nav">
+      <a href="#about">About Me</a>
+      <a href="#stats">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
     <main>
       <section id="about">
@@ -23,48 +32,58 @@
       <section id="stats">
         <h2>Skills & Stats</h2>
       
-        <div class="skill">
+        <div class="skill" title="Discord.js, Node.js, Express.js">
           <span>JavaScript</span>
           <div class="progress-bar">
-            <div class="progress" style="width: 85%;"></div>
+            <div class="progress" data-width="85%" ></div>
           </div>
         </div>
       
-        <div class="skill">
+        <div class="skill" title="HTML, CSS">
           <span>HTML & CSS</span>
           <div class="progress-bar">
-            <div class="progress" style="width: 90%;"></div>
+            <div class="progress" data-width="90%"></div>
           </div>
         </div>
       
-        <div class="skill">
+        <div class="skill" title="Python, Flask">
           <span>Python</span>
           <div class="progress-bar">
-            <div class="progress" style="width: 70%;"></div>
+            <div class="progress" data-width="70%"></div>
           </div>
         </div>
       
-        <div class="skill">
+        <div class="skill" title="PHP, Klein.php">
           <span>PHP</span>
           <div class="progress-bar">
-            <div class="progress" style="width: 75%;"></div>
+            <div class="progress" sdata-width="75%"></div>
           </div>
         </div>
       
-        <div class="skill">
+        <div class="skill" title="Its Tailwind so you know its good">
           <span>Tailwind CSS</span>
           <div class="progress-bar">
-            <div class="progress" style="width: 80%;"></div>
+            <div class="progress" data-width="80%"></div>
           </div>
         </div>
       
-        <div class="skill">
+        <div class="skill" title="Java, Minecraft">
           <span>Java</span>
           <div class="progress-bar">
-            <div class="progress" style="width: 70%;"></div>
+            <div class="progress" data-width="70%"></div>
           </div>
         </div>
       </section>
+
+      <section id="tech-stack">
+        <h2>My Tech Stack</h2>
+        <div class="tech">Tailwind CSS</div>
+        <div class="tech">Discord.js</div>
+        <div class="tech">Klein.php</div>
+        <div class="tech">T3 Stack</div>
+    </section>
+
+      
       
 
       <section id="projects">
@@ -150,6 +169,9 @@
     </div>
   </div> -->
 
-  <script src="./script.js"></script>
+  <button id="back-to-top">⬆</button>
+  <div id="scroll-indicator"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>

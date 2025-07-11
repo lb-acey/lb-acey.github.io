@@ -282,16 +282,16 @@ window.addEventListener("scroll", () => {
   }
 });
 
-const discordUserId = "863095378538266634"; 
+
+const discordUserId = "863095378538266634"; // Your Discord ID
 const spotifyContainer = document.getElementById("spotify-activity");
 
 async function fetchSpotifyActivity() {
   try {
     const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-    const apiUrl = `https://api.lanyard.rest/v1/users/${discordUserId}`;
+    const apiUrl = `${proxyUrl}https://api.lanyard.rest/v1/users/${discordUserId}`;
 
     const response = await fetch(apiUrl);
-    // const response = await fetch(`https://api.lanyard.rest/v1/users/${discordUserId}`);
     const data = await response.json();
 
     if (data.data.listening_to_spotify) {
@@ -333,6 +333,23 @@ async function fetchSpotifyActivity() {
     `;
   }
 }
+
+function calculateProgress(start, end) {
+  const currentTime = Date.now();
+  const totalDuration = end - start;
+  const elapsed = currentTime - start;
+  return Math.min((elapsed / totalDuration) * 100, 100);
+}
+
+function formatTime(ms) {
+  const minutes = Math.floor(ms / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
+// Update Spotify activity every 1 second
+setInterval(fetchSpotifyActivity, 1000);
+fetchSpotifyActivity();
 
 function calculateProgress(start, end) {
   const currentTime = Date.now();

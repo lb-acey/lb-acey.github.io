@@ -366,7 +366,3 @@ function formatTime(ms) {
   const seconds = Math.floor((ms % 60000) / 1000);
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
-
-// Aktualisiere die Spotify-Aktivität alle 1 Sekunde
-setInterval(fetchSpotifyActivity, 1000);
-fetchSpotifyActivity();

@@ -127,11 +127,13 @@
     box-shadow: 0 2px 6px var(--shadow);
     margin-bottom: 20px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d; /* Aktiviert 3D-Effekte */
   }
   
   .project:hover {
-    transform: translateY(-5px);
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg); /* 3D-Drehung */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Tieferer Schatten */
   }
   
   code {
@@ -371,3 +373,105 @@ html {
   z-index: 200;
   transition: width 0.2s ease;
 }
+
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background); /* Dunkler Hintergrund */
+  display: flex;
+  flex-direction: column; /* Elemente vertikal anordnen */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 10px solid #ccc;
+  border-top: 10px solid var(--accent); /* Farbe des Spinners */
+  border-radius: 50%;
+  animation: spin 1s linear infinite; /* Animation für die Drehung */
+}
+
+#loading-text {
+  margin-top: 20px; /* Abstand zum Spinner */
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: 'Fira Code', monospace;
+}
+
+.dots::after {
+  content: "";
+  display: inline-block;
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+  100% {
+    content: "";
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#loading-screen.fade-out {
+  animation: fadeOut 0.5s ease forwards; /* Animation mit Vorwärtsrichtung */
+}
+
+#contact a {
+  color: var(--primary); /* Setzt die Primärfarbe */
+  text-decoration: none; /* Entfernt die Unterstreichung */
+  transition: color 0.3s ease; /* Sanfter Übergang bei Hover */
+}
+
+#contact a:hover {
+  color: var(--accent); /* Optional: Ändere die Farbe beim Hover */
+  text-decoration: underline; /* Optional: Unterstreichung beim Hover */
+}
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Hintergrund hinter den Inhalten */
+  background-color: var(--background); /* Optional: Hintergrundfarbe */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+

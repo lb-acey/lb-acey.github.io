@@ -8,13 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <div id="particles-js"></div>
   <div class="container">
     <header>
-      <h1>Acey<span class="blinker">|</span></h1>
+      <h1>A</h1>
       <p>// Developer from germany</p>
       <button id="theme-toggle">🌙</button>
       <button id="menu-toggle">☰</button>
     </header>
+
+    <div id="loading-screen">
+      <div class="spinner"></div>
+      <p id="loading-text">Loading<span class="dots"></span></p>
+    </div>
+    
 
     <nav id="mobile-nav">
       <a href="#about">About Me</a>
@@ -171,7 +178,9 @@
 
   <button id="back-to-top">⬆</button>
   <div id="scroll-indicator"></div>
-
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
   <script src="script.js"></script>
+  
+  
 </body>
 </html>

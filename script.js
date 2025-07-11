@@ -1,3 +1,20 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const loadingScreen = document.getElementById("loading-screen");
+
+  // Füge die fade-out-Klasse hinzu
+  setTimeout(() => {
+    loadingScreen.classList.add("fade-out");
+
+    // Warte, bis die Animation endet, bevor der Ladebildschirm entfernt wird
+    loadingScreen.addEventListener("animationend", () => {
+      loadingScreen.remove(); // Entferne den Ladebildschirm aus dem DOM
+
+      // Starte den Typing-Effekt, nachdem der Ladebildschirm entfernt wurde
+      startTypingEffect();
+    });
+  }, 1000); // Zeige den Ladebildschirm für mindestens 1 Sekunde
+});
+
 // Modals
 const modals = document.querySelectorAll(".modal");
 const projects = document.querySelectorAll(".project");
@@ -57,7 +74,20 @@ const mobileNav = document.getElementById("mobile-nav");
 
 menuToggle.addEventListener("click", () => {
   mobileNav.classList.toggle("show");
-  document.body.style.overflow = mobileNav.classList.contains("show") ? "hidden" : "";
+  if (mobileNav.classList.contains("show")) {
+    document.body.style.overflow = "hidden"; // Scrollen deaktivieren
+  } else {
+    document.body.style.overflow = ""; // Scrollen wieder aktivieren
+  }
+});
+
+// Schließe das Menü, wenn ein Link angeklickt wird
+const mobileNavLinks = mobileNav.querySelectorAll("a");
+mobileNavLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    mobileNav.classList.remove("show");
+    document.body.style.overflow = ""; // Scrollen wieder aktivieren
+  });
 });
 
 // Progress Bars Animation
@@ -76,23 +106,25 @@ const progressObserver = new IntersectionObserver(entries => {
 progressBars.forEach(bar => progressObserver.observe(bar));
 
 // Typing-Effekt für den Header
-const headerTitle = document.querySelector("header h1");
-const text = "Acey | Lucas";
-let index = 0;
+function startTypingEffect() {
+  const headerTitle = document.querySelector("header h1");
+  const text = "Acey | Lucas";
+  let index = 0;
 
-function typeEffect() {
-  if (index < text.length) {
-    headerTitle.textContent += text[index];
-    index++;
-    setTimeout(typeEffect, 100); // Geschwindigkeit der Animation
-  } else {
-    // Blinker-Animation hinzufügen, nachdem der Typing-Effekt abgeschlossen ist
-    headerTitle.innerHTML += '<span class="blinker">|</span>';
+  function typeEffect() {
+    if (index < text.length) {
+      headerTitle.textContent += text[index];
+      index++;
+      setTimeout(typeEffect, 100); // Geschwindigkeit der Animation
+    } else {
+      // Blinker-Animation hinzufügen, nachdem der Typing-Effekt abgeschlossen ist
+      headerTitle.innerHTML += '<span class="blinker">|</span>';
+    }
   }
-}
 
-headerTitle.textContent = ""; // Leeren, bevor die Animation startet
-typeEffect();
+  headerTitle.textContent = ""; // Leeren, bevor die Animation startet
+  typeEffect();
+}
 
 // Dynamisches Jahr im Footer
 const footer = document.querySelector("footer p");
@@ -140,3 +172,94 @@ window.addEventListener("scroll", () => {
   const percentage = (window.scrollY / maxScroll) * 100;
   document.getElementById("scroll-indicator").style.width = `${percentage}%`;
 });
+
+const projectcards = document.querySelectorAll(".project");
+
+projectcards.forEach(project => {
+  project.addEventListener("mousemove", e => {
+    const rect = project.getBoundingClientRect();
+    const x = e.clientX - rect.left; // X-Position der Maus relativ zur Karte
+    const y = e.clientY - rect.top;  // Y-Position der Maus relativ zur Karte
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * 10; // Maximal 10 Grad
+    const rotateY = ((x - centerX) / centerX) * -10;
+
+    project.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  project.addEventListener("mouseleave", () => {
+    project.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+  });
+});
+
+tsParticles.load("particles-js", {
+  particles: {
+    number: {
+      value: 100, // Anzahl der Sterne
+      density: {
+        enable: true,
+        value_area: 800,
+      },
+    },
+    color: {
+      value: "#ffffff", // Weiße Sterne
+    },
+    shape: {
+      type: "circle",
+    },
+    opacity: {
+      value: 0.8,
+      random: true, // Funkeln
+      anim: {
+        enable: true,
+        speed: 1,
+        opacity_min: 0.3,
+        sync: false,
+      },
+    },
+    size: {
+      value: 3,
+      random: true,
+    },
+    move: {
+      enable: true,
+      speed: 0.2, // Langsame Bewegung
+      direction: "none",
+      random: true,
+      straight: false,
+      out_mode: "out",
+      bounce: false,
+    },
+  },
+  interactivity: {
+    detect_on: "canvas",
+    events: {
+      onhover: {
+        enable: true,
+        mode: "repulse", // Sterne bewegen sich weg, wenn die Maus darüber ist
+      },
+    },
+    modes: {
+      repulse: {
+        distance: 100,
+        duration: 0.4,
+      },
+    },
+  },
+  retina_detect: true,
+});
+
+let konamiCode = [];
+const secretCode = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
+
+window.addEventListener("keydown", (e) => {
+  konamiCode.push(e.key);
+  if (konamiCode.join("").includes(secretCode)) {
+    alert("Why did you use the Konami Code? This is not a game!");
+    konamiCode = [];
+  }
+});
+
